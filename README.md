@@ -1,1 +1,1 @@
-# IOT-miniproject2
+# IOT-Mini-project-2
