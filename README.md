@@ -75,9 +75,6 @@ This project demonstrates a wireless communication system using two Xiao BLE ESP
    - Then go to deployment, select arduino ide and click on build
    - Arduino library will be generated in this way
    - Now open arduino ide go to sketch->include library->add zip file-> select downloaded library from edge impulse
-   - model Library is found in this link with name trainingLibarary.zip
-    https://github.com/aliabidlodhi74/IOT-Project-2/tree/main/Firmware/Library
-
    - Now upload firmware in the transmitter and receiver boards
    - Perform up down and left right movements and they will be recognised by transmitter board and sent to receiver
    - The Receiveer board will display Lights are On if left right movement is identified, Lights are off if up down movement is identified
