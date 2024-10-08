@@ -25,8 +25,7 @@ This project demonstrates a wireless communication system using two Xiao BLE ESP
 ## Getting Started
 
 1. **Clone the Repository:**
-   
-https://github.com/aliabidlodhi74/IOT-Project-2
+   https://github.com/seonabrar/IOT-miniproject2
 
 2. **Hardware Setup:**
    
