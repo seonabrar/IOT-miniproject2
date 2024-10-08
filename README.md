@@ -1,71 +1,94 @@
-# IOT-Mini-project-2
+# IOT-Project-2
+# Gesture based Wirless Home Automation
 
-This project demonstrates a simple communication setup between two ESP32 devices using the ESP-NOW protocol. ESP-NOW allows for peer-to-peer communication between ESP32 modules, enabling efficient and direct data transmission without the need for a traditional Wi-Fi connection. Unlike the wifi, it has large range upto 500 in open space, with antenna. 
+This project demonstrates a wireless communication system using two Xiao BLE ESP32-C3 boards. The transmitter board is equipped with an MPU6050 accelerometer, while the receiver board features a 0.96" OLED display. The system is designed to detect movements using the MPU6050 and display corresponding signals on the OLED display and turn on and off the lights.
 
-## ESP-NOW Overview:
+## Hardware Components
 
-### ESP-NOW Protocol: 
-ESP-NOW is a communication protocol developed by Espressif Systems specifically for ESP8266 and ESP32 devices. It enables fast, low-power communication between ESP devices, making it ideal for scenarios where a dedicated Wi-Fi network is not required.
+- **Transmitter Board:**
+  - Xiao BLE ESP32-C3
+  - MPU6050 Accelerometer
 
-### Peer-to-Peer Communication: 
+- **Receiver Board:**
+  - Xiao BLE ESP32-C3
+  - 0.96" OLED Display
 
-In this project, the sender and receiver ESP32 devices act as peers. The sender collects data from a DHT11 sensor and transmits it to the receiver using ESP-NOW. The receiver, in turn, displays the received data on an OLED display.
+## Dependencies
 
-## Sender Sketch (`sender.ino`)
+- [Edge Impulse](https://www.edgeimpulse.com/): Used for training the MPU6050 data.
 
-The sender sketch is responsible for reading data from a DHT11 sensor and transmitting it using the ESP-NOW protocol. After successfully broadcasting the data, the sender enters deep sleep mode to minimize power consumption. The sender board wake up for 50mS and go to sleep for 10s. It consumes 40uA in deep sleep state and 100mA in wake up state.
+- ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/6b46aa26-4a01-46ad-8d11-eeb2181d55a4)
 
-### Components:
-	Seed Studio XIAO ESP32 C3 -> 2 boards
-	DHT11 ->    1 unit
-	0.96” OLED -> 1 Unit
-
-### Hardware Setup:
-
-1.	Connect the DHT11 sensor to pin D10 on the ESP32.
-2.	. Connect the DHT11 sensor to pin D10 on the ESP32.
-2. Ensure the ESP32 is powered and connected appropriately.
-
-### How to Use:
-
-1. Upload the `sender.ino` sketch to the ESP32 device.
-2. Open the Serial Monitor (Tools > Serial Monitor) to monitor debugging information.
-3. The device will read temperature and humidity data, broadcast it via ESP-NOW, and then enter deep sleep.
-
-## Receiver Sketch (`receiver.ino`)
-
-The receiver sketch initializes the ESP-NOW communication and waits for data from the sender. Upon receiving data, it displays temperature and humidity on an OLED display. The receiver also supports deep sleep when not actively receiving data.
-
-### Hardware Setup:
-
-1. Connect the OLED display to the appropriate pins on the ESP32.
-2. Ensure the ESP32 is powered and connected appropriately.
-
-### How to Use:
-
-1. Upload the `receiver.ino` sketch to the ESP32 device.
-2. Open the Serial Monitor (Tools > Serial Monitor) to monitor debugging information.
-3. The device will wait for data from the sender and display it on the OLED screen.
-4. If data is received, the receiver will enter deep sleep after a brief display.
-5. To Read data again press reset button on esp32 it will wait for few 2nd and display temperature and humidity values
-
-### Benefits:
-
-1. **Energy-Efficient Monitoring:**
-   - Deep sleep functionality ensures minimal power consumption, suitable for battery-powered applications.
-
-2. **Real-Time Climate Data:**
-   - Users can access up-to-date temperature and humidity information, aiding in decision-making for climate control adjustments.
-
-3. **Integration with Smart Home Systems:**
-   - The system can be extended to integrate with other smart home devices, creating a comprehensive climate control solution.
-
-4. **User-Friendly Interface:**
-   - The OLED display provides an intuitive and user-friendly interface for viewing environmental data.
-
-5. **Cost-Effective Solution:**
-   - ESP32 devices are affordable and the ESP-NOW protocol eliminates the need for a dedicated Wi-Fi network, reducing infrastructure costs.
-
-By employing this ESP-NOW based smart home climate control system, users can enhance their living environment, optimize energy usage, and contribute to a more comfortable and efficient home.
+- ESPNOW for wireless Communication 
 
 
+## Getting Started
+
+1. **Clone the Repository:**
+   
+https://github.com/aliabidlodhi74/IOT-Project-2
+
+2. **Hardware Setup:**
+   
+   - **Connect transmitter esp32 board with mpu6050**
+     ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/08c7ec3c-fb3e-4739-b31b-32b653e0d787)
+
+
+   - **Connect Receiver esp32 board with OLED**
+   
+     ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/251678a5-dd16-4be0-9a75-de70e1ba2914)
+
+
+3. **Edge Impulse Setup:**
+
+   - Create Account at edge impulse
+   - To run edge impulse follow the installation tutorial on the following link
+     https://docs.edgeimpulse.com/docs/tools/edge-impulse-cli/cli-installation
+   - Upload dataForwarder.ino firmware in the transmitter board with mpu6050 connected
+   - Open CMD and run this command
+     
+4. **edge-impulse-data-forwarder**
+
+     
+   - Provide name of 3 axis as aX, aY, aZ and name of the device as shown in the picture below
+     
+   ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/41be1e86-7e96-4310-a0d6-1b9805dc751b)
+
+
+    - Now device is connected with edge impulse and project is created
+
+   ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/b1eccd64-10da-407f-94d9-88747f0b67dc)
+
+   ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/b2af4f9a-a3fc-4d9f-9409-d729b786de34)
+
+
+   - Now click data aqcusition on the top left and capture set for model training
+   - Add atleast 15 sample models for each gesture
+  
+   - ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/6f5dbd1c-7ad7-42b8-b7a9-0b2e90683bcf)
+  
+   - Now go to Impulse design and add spectral analysis as processing block and Neural Network Classification as learning block, keep the window size upto 1000ms and save impulse
+  
+   - ![image](https://github.com/aliabidlodhi74/IOT-Project-2/assets/83972129/872a8247-d665-4a39-8943-9d786b61f61a)
+  
+   - Now go to spectral features and generate features
+   - Then go to NN classifier and select esp eye board and tain the model
+   - Then go to deployment, select arduino ide and click on build
+   - Arduino library will be generated in this way
+   - Now open arduino ide go to sketch->include library->add zip file-> select downloaded library from edge impulse
+   - model Library is found in this link with name trainingLibarary.zip
+    https://github.com/aliabidlodhi74/IOT-Project-2/tree/main/Firmware/Library
+
+   - Now upload firmware in the transmitter and receiver boards
+   - Perform up down and left right movements and they will be recognised by transmitter board and sent to receiver
+   - The Receiveer board will display Lights are On if left right movement is identified, Lights are off if up down movement is identified
+  
+5. **Video Demonstration**
+   - Youtube link
+  
+https://www.youtube.com/watch?v=loA9_1b2G0Q
+
+  
+# Application
+
+    The main application of this project is wireless home automation
